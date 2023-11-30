@@ -1,0 +1,524 @@
+{
+    "openapi":"3.0.2",
+    "info": {
+      "title":"BOOK API",
+      "description": "Api for management book data",
+      "version":"1.0"
+    },
+    "servers": [
+      {"url":"https://localhost:8000"}
+    ],
+    "paths": {
+      "/api/users" : {
+        "post" : {
+          "tags": ["User"],
+          "description": "Register new User",
+          "requestBody" : {
+            "content": {
+              "application/json" : {
+                "examples" : {
+                  "zakaria" : {
+                    "description" : "Create new user",
+                    "value" : {
+                      "name" : "Muhammad Zakaria",
+                      "email" : "zakaria@mail.com",
+                      "password" : "rahasia"
+
+                    }
+                  }
+                },
+                "schema" : {
+                  "type": "object",
+                  "properties": {
+                    "name" : {
+                      "type" : "string"
+                    },
+                    "email" : {
+                      "type": "string"
+                    },
+                    "password" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+                
+              }
+            }
+          },
+          "responses" : {
+            "201" : {
+              "description" : "Succes create user",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type": "object",
+                    "properties": {
+                      "data" : {
+                        "type": "object",
+                        "properties": {
+                          "id" : {
+                            "type": "integer"
+                          },
+                          "name" : {
+                            "type": "string"
+                          },
+                          "email" : {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                
+              }
+            }
+          }
+        }
+      },
+      "/api/users/login" : {
+        "post" : {
+          "tags": ["User"],
+          "description": "Login user"
+        }
+      },
+      "/api/users/logout" : {
+        "delete" : {
+          "tags": ["User"],
+          "description": "Logout user"
+        }
+      },
+      "/api/authors" : {
+        "get" : {
+          "tags": ["Author"],
+          "description": "Get all data author",
+          "responses": {
+            "200" :{
+              "description": "Succes get all data",
+              "content": {
+                "application/json" : {
+                  "schema" : {
+                    "type": "object",
+                    "properties": {
+                      "data" : {
+                        "type": "object",
+                        "properties": {
+                          "id" : {
+                            "type": "integer"
+                          },
+                          "name" : {
+                            "type": "string"
+                          }
+                        }
+                      }
+
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post" :{
+          "tags": ["Author"],
+          "description": "Create new Author",
+          "requestBody" : {
+            "description": "Create new author",
+            "content": {
+              "application/json" : {
+                "schema" : {
+                  "type": "object",
+                  "properties": {
+                    "name" : {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201" : {
+              "description": "Author created succesfully",
+              "content": {
+                "application/json" : {
+                  "schema" : {
+                    "type": "object",
+                    "properties": {
+                      "data" : {
+                        "type": "object",
+                        "properties": {
+                          "id" : {
+                            "type": "integer"
+                          },
+                          "name" : {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/authors/{id}" : {
+        "put" : {
+          "tags": ["Author"],
+          "description": "Update author data",
+          "parameters": [
+            {
+              "name": " Author id",
+              "in": "path"
+            }
+          ],
+          "requestBody" : {
+            "description": "Create new author",
+            "content": {
+              "application/json" : {
+                "schema" : {
+                  "type": "object",
+                  "properties": {
+                    "name" : {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201" : {
+              "description": "Author updated succesfully",
+              "content": {
+                "application/json" : {
+                  "schema" : {
+                    "type": "object",
+                    "properties": {
+                      "data" : {
+                        "type": "object",
+                        "properties": {
+                          "id" : {
+                            "type": "integer"
+                          },
+                          "name" : {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete" : {
+          "tags": ["Author"],
+          "description": "Delete author data",
+          "parameters": [
+            {
+              "name": "id",
+              "description": "Author id for delete",
+              "in": "path"
+            }
+          ],
+          "responses": {
+            "200" : {
+              "description": "Succes",
+              "content": {
+                "application/json" : {
+                  "schema" : {
+                    "type": "object",
+                    "properties": {
+                      "data" : {
+                        "type": "boolean"
+                      }, 
+                      "errors" : {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/books" : {
+        "post" : {
+          "tags": ["Books"],
+          "description": "Create new book",
+          "requestBody" : {
+            "description": "Create new book",
+            "content": {
+              "application/json" : {
+                "schema" : {
+                  "type": "object",
+                  "properties": {
+                    "title" : {
+                      "type": "string"
+                    },
+                    "publisher" : {
+                      "type": "string"
+                    },
+                    "publish_year" : {
+                      "type": "string"
+                    },
+                    "language" : {
+                      "type": "string"
+                    },
+                    "author_id" : {
+                      "type": "integer"
+                    }
+
+                  }
+                }
+              }
+            }
+
+          },
+          "responses": {
+            "201" : {
+              "description": "Book created succesfully",
+              "content": {
+                "application/json" : {
+                  "schema" : {
+                    "type": "object",
+                    "properties": {
+                      "data" : {
+                        "type": "object",
+                        "properties": {
+                          "id" : {
+                            "type": "integer"
+                          },
+                          "publisher" : {
+                            "type": "string"
+                          },
+                          "publish_year" : {
+                            "type": "string"
+                          },
+                          "language" : {
+                            "type": "string"
+                          },
+                          "author_id" : {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get" : {
+          "tags": ["Books"],
+          "description": "Search book ",
+          "parameters": [
+            {
+              "name": "title",
+              "in": "query"
+            },
+            {
+              "name": "publisher",
+              "in": "query"
+            },
+            {
+              "name": "publish_year",
+              "in": "query"
+            }
+          ],
+          "responses": {
+            "200" : {
+              "description": "Succes search book",
+              "content": {
+                "application/json" : {
+                  "schema" : {
+                    "type": "object",
+                    "properties": {
+                      "data" : {
+                        "type": "array",
+                        "items" : {
+                          "type": "object",
+                          "properties": {
+                            "title" : {
+                              "type": "string"
+                            },
+                            "publisher" : {
+                              "type": "string"
+                            },
+                            "publish_year" : {
+                              "type": "string"
+                            },
+                            "language" : {
+                              "type": "string"
+                            },
+                            "author_id" : {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/books/{id}" : {
+        "get" : {
+          "tags": ["Books"],
+          "description": "Get book",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path"
+            }
+          ],
+          "responses": {
+            "201" : {
+              "description": "Succes",
+              "content": {
+                "application/json" : {
+                  "schema" : {
+                    "type": "object",
+                    "properties": {
+                      "data" : {
+                        "type": "object",
+                        "properties": {
+                          "id" : {
+                            "type": "integer"
+                          },
+                          "publisher" : {
+                            "type": "string"
+                          },
+                          "publish_year" : {
+                            "type": "string"
+                          },
+                          "language" : {
+                            "type": "string"
+                          },
+                          "author_id" : {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put" : {
+          "tags": ["Books"],
+          "description": "Update Book",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path"
+            }
+          ],
+          "requestBody" : {
+            "description": "Update book",
+            "content": {
+              "application/json" : {
+                "schema" : {
+                  "type": "object",
+                  "properties": {
+                    "title" : {
+                      "type": "string"
+                    },
+                    "publisher" : {
+                      "type": "string"
+                    },
+                    "publish_year" : {
+                      "type": "string"
+                    },
+                    "language" : {
+                      "type": "string"
+                    },
+                    "author_id" : {
+                      "type": "integer"
+                    }
+
+                  }
+                }
+              }
+            }
+
+          },
+          "responses": {
+            "200" : {
+              "description": "Succes",
+              "content": {
+                "application/json" : {
+                  "schema" : {
+                    "type": "object",
+                    "properties": {
+                      "data" : {
+                        "type": "object",
+                        "properties": {
+                          "id" : {
+                            "type": "integer"
+                          },
+                          "publisher" : {
+                            "type": "string"
+                          },
+                          "publish_year" : {
+                            "type": "string"
+                          },
+                          "language" : {
+                            "type": "string"
+                          },
+                          "author_id" : {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete" : {
+          "tags": ["Books"],
+          "description": "Delete book",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path"
+            }
+          ],
+          "responses": {
+            "200" : {
+              "description": "Succes",
+              "content": {
+                "application/json" : {
+                  "schema" : {
+                    "type": "object",
+                    "properties": {
+                      "data" : {
+                        "type": "boolean"
+                      }, 
+                      "errors" : {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
